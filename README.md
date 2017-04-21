@@ -2,4 +2,5 @@
 
 これはRails tutorialで作られたサンプルアプリケーションです
 
-idobataと連携してます
+idobataと連携してます.
+
