@@ -16,24 +16,12 @@ RSpec.describe StaticPagesHelper, type: :helper do
   end
   describe "GET #home", type: :feature  do
     it "returns http success" do
-      visit '/static_pages/home'
+      visit root_url
       expect(response).to have_http_status(:success)
     end
     it "should have the title Home" do
       visit '/static_pages/home'
-      expect(page).to have_title("Home")
-    end
-  end
-
-
-  describe "GET #home", type: :feature  do
-    it "returns http success" do
-      visit '/static_pages/home'
-      expect(response).to have_http_status(:success)
-    end
-    it "should have the title Home" do
-      visit '/static_pages/home'
-      expect(page).to have_title("")
+      expect(page).to have_title("Home | #{@base_title}")
     end
   end
 
@@ -44,7 +32,7 @@ RSpec.describe StaticPagesHelper, type: :helper do
     end
     it "should have the title Help" do
       visit '/static_pages/help'
-      expect(page).to have_title("Help")
+      expect(page).to have_title("Help | #{@base_title}")
     end
 
   end
@@ -56,7 +44,7 @@ RSpec.describe StaticPagesHelper, type: :helper do
     end
     it "should have the title About" do
       visit '/static_pages/about'
-      expect(page).to have_title("About")
+      expect(page).to have_title("About | #{@base_title}")
     end
   end
 
@@ -67,7 +55,7 @@ RSpec.describe StaticPagesHelper, type: :helper do
     end
     it "should have the title Contact" do
       visit '/static_pages/contact'
-      expect(page).to have_title("Contact")
+      expect(page).to have_title("Contact | #{@base_title}")
     end
   end
 #  pending "add some examples to (or delete) #{__FILE__}"
