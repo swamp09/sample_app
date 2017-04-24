@@ -11,6 +11,9 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe StaticPagesHelper, type: :helper do
+  before  do
+    @base_title = "Ruby on Rails Tutorial Sample App"
+  end
   describe "GET #home", type: :feature  do
     it "returns http success" do
       visit '/static_pages/home'
@@ -20,9 +23,6 @@ RSpec.describe StaticPagesHelper, type: :helper do
       visit '/static_pages/home'
       expect(page).to have_title("Home")
     end
-  end
-    before  do
-    @base_title = "Ruby on Rails Tutorial Sample App"
   end
 
 
