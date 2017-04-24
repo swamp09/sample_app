@@ -31,6 +31,7 @@ RSpec.describe StaticPagesHelper, type: :helper do
       expect(page).to have_selector(:css, 'a[href="/help"]')
       expect(page).to have_selector(:css, 'a[href="/about"]')
       expect(page).to have_selector(:css, 'a[href="/contact"]')
+      expect(page).to have_selector(:css, 'a[href="/signup"]')
     end
   end
 
