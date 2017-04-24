@@ -1,7 +1,7 @@
 language: ruby
 
 rvm:
- - 2.5.0-dev
+ - 2.4.1
 
 services:
   - postgresql
@@ -17,3 +17,6 @@ before_script:
 
 script:
   - bundle exec rspec
+
+notification:
+  email: false
