@@ -1,11 +1,12 @@
 class User
-  attr_accessor :first_name,:last_name, :email
+  attr_accessor :first_name, :last_name, :email
 
   def initialize(attribute = {})
     @first_name = attribute[:first_name]
     @last_name = attribute[:last_name]
     @email = attribute[:email]
   end
+
   def full_name
     "#{@first_name} #{@last_name}"
   end
