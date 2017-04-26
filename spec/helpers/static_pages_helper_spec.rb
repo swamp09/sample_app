@@ -11,22 +11,22 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe StaticPagesHelper, type: :helper do
-  before  do
-    @base_title = "Ruby on Rails Tutorial Sample App"
+  before do
+    @base_title = 'Ruby on Rails Tutorial Sample App'
   end
 
-  describe "GET #home", type: :feature  do
-    before {visit root_path}
-    it "returns http success" do
+  describe 'GET #home', type: :feature do
+    before { visit root_path }
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    it "should have the title Home" do
+    it 'should have the title Home' do
       expect(page).to have_title("Home | #{@base_title}")
     end
     it 'current path is root_path' do
       expect(current_path).to eq root_path
     end
-    it "layout links" do
+    it 'layout links' do
       expect(page).to have_selector(:css, 'a[href="/"]')
       expect(page).to have_selector(:css, 'a[href="/help"]')
       expect(page).to have_selector(:css, 'a[href="/about"]')
@@ -35,38 +35,36 @@ RSpec.describe StaticPagesHelper, type: :helper do
     end
   end
 
-
-
-  describe "GET #home", type: :feature  do
-    before {visit help_path}
-    it "returns http success" do
+  describe 'GET #home', type: :feature do
+    before { visit help_path }
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    it "should have the title Help" do
+    it 'should have the title Help' do
       expect(page).to have_title("Help | #{@base_title}")
     end
   end
 
-  describe "GET #about",type: :feature do
-    before {visit about_path}
-    it "returns http success" do
+  describe 'GET #about', type: :feature do
+    before { visit about_path }
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    it "should have the title About" do
+    it 'should have the title About' do
       expect(page).to have_title("About | #{@base_title}")
     end
   end
 
-  describe "GET #contact",type: :feature do
-    before {visit contact_path}
-    it "returns http success" do
+  describe 'GET #contact', type: :feature do
+    before { visit contact_path }
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
-    it "should have the title Contact" do
+    it 'should have the title Contact' do
       expect(page).to have_title("Contact | #{@base_title}")
     end
     it 'full title contact' do
-      expect(page).to have_title full_title("Contact")
+      expect(page).to have_title full_title('Contact')
     end
   end
 end
