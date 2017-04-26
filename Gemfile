@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails',        '5.0.2'
+gem 'bcrypt',       '3.1.11'
 gem 'bootstrap-sass', '3.3.6'
 gem 'puma',         '3.4.0'
 gem 'sass-rails',   '5.0.6'
@@ -14,6 +15,7 @@ group :development, :test do
   gem 'sqlite3', '1.3.11'
   gem 'byebug',  '9.0.0', platform: :mri
   gem 'rspec-rails', '3.5'
+  gem 'rubocop',  require: false
 end
 
 group :development do
@@ -29,7 +31,7 @@ group :test do
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
   gem 'selenium-webdriver', '2.35.1'
-  gem 'capybara', '2.4.0'
+  gem 'capybara', '2.8'
 end
 
 group :production do
