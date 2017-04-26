@@ -6,9 +6,6 @@ AllCops:
     - db/schema.rb
     - db/migrate/*
     - vendor/**/*
-  # Rails向けのRails copsを実行。"rubocop -R"と同じ
-  RunRailsCops: true
-
 Rails:
   Enabled: true
 
