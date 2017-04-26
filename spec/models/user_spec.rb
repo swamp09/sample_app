@@ -61,6 +61,7 @@ RSpec.describe User, type: :model do
   end
   describe 'password' do
     it 'password should be present (nonblank)' do
+
       @user.password = @user.password_confirmation = ' ' * 6
 
       expect(@user).to_not be_valid
