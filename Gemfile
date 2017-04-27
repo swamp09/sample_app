@@ -13,6 +13,7 @@ gem 'uglifier',     '3.0.0'
 
 group :development, :test do
   gem 'byebug', '9.0.0', platform: :mri
+  gem 'factory_girl_rails'
   gem 'rspec-rails', '3.5'
   gem 'rubocop', require: false
   gem 'sqlite3', '1.3.11'
