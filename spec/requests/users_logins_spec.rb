@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'UsersLogins', type: :request do
   before do
-    @user = FactoryGirl.create(:michael)
-    @other_user = FactoryGirl.create(:archer)
+    @user = create(:michael)
+    @other_user = create(:archer)
   end
 
   describe 'GET /users_logins' do
@@ -153,15 +153,4 @@ RSpec.describe 'UsersLogins', type: :request do
       expect(@other_user.admin?).to be false
     end
   end
-=begin
-  describe "delete" do
-    it "should destroy when not logged in" do
-      expect {delete user_path(@user)}.to change(User, :count).by(-1)
-    end
-    it "should  destroy when not logged in as a non-admin" do
-      login_button(@other_user)
-      expect {delete user_path(@user)}.to_not change(User, :count)
-    end
-  end
-=end
 end

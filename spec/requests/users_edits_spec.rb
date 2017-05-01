@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "UsersEdits", type: :request do
   before do
-    @user = FactoryGirl.create(:michael)
+    @user = create(:michael)
   end
   describe "GET /users_edits" do
     let(:name) { "Foo bar" }
