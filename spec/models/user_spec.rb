@@ -82,7 +82,7 @@ RSpec.describe User, type: :model do
 
   describe 'authenticated?' do
     it 'user with nil digest' do
-      expect @user.authenticated?('')
+      expect @user.authenticated?(:remember,'')
     end
   end
 end
