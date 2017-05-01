@@ -9,7 +9,7 @@ require 'factory_girl_rails'
 include ApplicationHelper
 ActiveRecord::Migration.maintain_test_schema!
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f }
 
 # logger
 # Rails.logger = Logger.new(STDOUT) # 追記

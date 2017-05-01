@@ -5,7 +5,7 @@ FactoryGirl.define do
     password 'password'
     admin true
     activated true
-    activated_at Time.zone.now
+    activated_at Time.now
   end
 
   factory :archer, class: User do
@@ -13,14 +13,14 @@ FactoryGirl.define do
     email 'duchess@example.gov'
     password 'password'
     activated true
-    activated_at Time.zone.now
+    activated_at Time.now
   end
 
   factory :user, class: User do
-    sequence(:name)  { |n| "Person #{n}" }
-    sequence(:email) { |n| "person_#{n}@example.com" }
-    password "password"
+    sequence(:name)  {|n| "Person #{n}" }
+    sequence(:email) {|n| "person_#{n}@example.com" }
+    password 'password'
     activated true
-    activated_at Time.zone.now
+    activated_at Time.now
   end
 end

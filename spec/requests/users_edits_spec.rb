@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "UsersEdits", type: :request do
+RSpec.describe 'UsersEdits', type: :request do
   before do
     @user = create(:michael)
   end
-  describe "GET /users_edits" do
-    let(:name) { "Foo bar" }
-    let(:email) { "foo@bar.com" }
+  describe 'GET /users_edits' do
+    let(:name) { 'Foo bar' }
+    let(:email) { 'foo@bar.com' }
 
     before do
       login_button(@user)
@@ -15,27 +15,27 @@ RSpec.describe "UsersEdits", type: :request do
 
     describe 'unsuccessful edit' do
       it do
-        expect(page).to have_title("Edit user")
+        expect(page).to have_title('Edit user')
 
-        patch user_path(@user), params:{user:{name:"",
-                          email:"foo@invalid",password:"foo",
-                          password_confirmation:"bar"}}
+        patch user_path(@user), params: {user: {name: '',
+                                                email: 'foo@invalid', password: 'foo',
+                                                password_confirmation: 'bar'}}
 
-        expect(page).to have_title("Edit user")
+        expect(page).to have_title('Edit user')
       end
     end
 
     describe 'successfull edit' do
-      let(:name) { "Foo bar" }
-      let(:email) { "foo@bar.com" }
+      let(:name) { 'Foo bar' }
+      let(:email) { 'foo@bar.com' }
 
       before do
-        fill_in "Name",             with: name
-        fill_in "Email",            with: email
-        fill_in "Password",         with: ""
-        fill_in "Password confirmation", with: ""
+        fill_in 'Name',             with: name
+        fill_in 'Email',            with: email
+        fill_in 'Password',         with: ''
+        fill_in 'Password confirmation', with: ''
 
-        click_button "Save changes"
+        click_button 'Save changes'
       end
 
       it do
@@ -44,17 +44,19 @@ RSpec.describe "UsersEdits", type: :request do
       end
     end
 
-    describe "successful edit with friendly forwarding" do
-      subject {patch user_path(@user),params:{user:{email:name,
-                                  password:email}}}
+    describe 'successful edit with friendly forwarding' do
+      subject do
+        patch user_path(@user), params: {user: {email: name,
+                                                password: email}}
+      end
 
       before do
-        fill_in "Name",             with: name
-        fill_in "Email",            with: email
-        fill_in "Password",         with: ""
-        fill_in "Password confirmation", with: ""
+        fill_in 'Name',             with: name
+        fill_in 'Email',            with: email
+        fill_in 'Password',         with: ''
+        fill_in 'Password confirmation', with: ''
 
-        click_button "Save changes"
+        click_button 'Save changes'
       end
 
       it do
@@ -67,8 +69,6 @@ RSpec.describe "UsersEdits", type: :request do
         expect(@user.reload.name).to eq(name)
         expect(@user.reload.email).to eq(email)
       end
-
-
     end
   end
 end

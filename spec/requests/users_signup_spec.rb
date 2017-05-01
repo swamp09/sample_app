@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'UsersSignup', type: :request do
-
   describe 'GET /users_signup' do
     before do
       ActionMailer::Base.deliveries.clear
@@ -32,9 +31,7 @@ RSpec.describe 'UsersSignup', type: :request do
         expect(user.activated?)
 
         log_in_as(user)
-
       end
-
     end
   end
 end
