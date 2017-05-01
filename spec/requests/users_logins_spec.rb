@@ -1,14 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'UsersLogins', type: :request do
-  def log_in_as(user, password: 'password', remember_me: '1')
-    post login_path, params: {session: {email: user.email,
-                                        password: password,
-                                        remember_me: remember_me}}
-  end
-
   before do
     @user = FactoryGirl.create(:michael)
+    @other_user = FactoryGirl.create(:archer)
   end
 
   describe 'GET /users_logins' do
@@ -90,4 +85,83 @@ RSpec.describe 'UsersLogins', type: :request do
       expect(cookies['remember_token']).to be nil
     end
   end
+
+  describe "redirect index when not logged in" do
+    it do
+      get users_path
+
+      expect(flash).to_not be_nil
+    end
+  end
+
+  describe "redirect edit when not logged in" do
+    it do
+      get edit_user_path(@user)
+
+      expect(flash).to_not be_nil
+    end
+  end
+
+  describe "redirect update when not logged in" do
+    subject {patch user_path(@user),params:{user:{name:@user.name,
+                                              email:@user.email}}}
+    before do
+      login_button(@user)
+    end
+    it do
+      patch user_path(@user),params:{user:{name:@user.name,
+                                              email:@user.email}}
+
+      expect(flash).to_not be_nil
+
+      expect(subject).to redirect_to(login_url)
+    end
+  end
+
+  describe "redirect edit when not logged in as wrong user" do
+    it do
+      get edit_user_path(@other_user)
+
+      expect(flash).to_not be_nil
+    end
+  end
+
+  describe "redirect update when not logged in as wrong user" do
+    subject {patch user_path(@other_user),params:{user:{name:@other_user.name,
+                                              email:@other_user.email}}}
+    before do
+      login_button(@other_user)
+    end
+    it do
+      patch user_path(@other_user),params:{user:{name:@other_user.name,
+                                              email:@other_user.email}}
+
+      expect(flash).to_not be_nil
+
+      expect(subject).to redirect_to(login_url)
+    end
+  end
+  describe "not allow thw admin attribute to be edited via the web" do
+    before do
+      login_button(@other_user)
+    end
+    it do
+      expect(@other_user.admin?).to be false
+      patch user_path(@other_user),params:{user:{password:@other_user.name,
+                                              password_confirmation:@other_user.email,
+                                              admin:true}}
+      expect(@other_user.admin?).to be false
+    end
+  end
+=begin
+  describe "delete" do
+    it "should destroy when not logged in" do
+      expect {delete user_path(@user)}.to change(User, :count).by(-1)
+    end
+    it "should  destroy when not logged in as a non-admin" do
+      login_button(@other_user)
+      expect {delete user_path(@user)}.to_not change(User, :count)
+    end
+  end
+=end
 end

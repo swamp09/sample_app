@@ -3,5 +3,18 @@ FactoryGirl.define do
     name 'Michael Example'
     email 'michael@example.com'
     password 'password'
+    admin true
+  end
+
+  factory :archer, class: User do
+    name 'Sterling Archer'
+    email 'duchess@example.gov'
+    password 'password'
+  end
+
+  factory :user, class: User do
+    sequence(:name)  { |n| "Person #{n}" }
+    sequence(:email) { |n| "person_#{n}@example.com" }
+    password "password"
   end
 end

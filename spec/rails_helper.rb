@@ -9,6 +9,8 @@ require 'factory_girl_rails'
 include ApplicationHelper
 ActiveRecord::Migration.maintain_test_schema!
 
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
 # logger
 # Rails.logger = Logger.new(STDOUT) # 追記
 RSpec.configure do |config|
@@ -23,12 +25,4 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
-end
-
-def is_logged_in?
-  !session[:user_id].nil?
-end
-
-def log_in_as(user)
-  session[:user_id] = user.id
 end
