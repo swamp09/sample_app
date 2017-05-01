@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "UsersIndices", type: :request do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) {create(:user)}
 
-  before(:all) { 30.times { FactoryGirl.create(:user) } }
-  after(:all)  { User.delete_all }
+  before(:all) {30.times{create(:user)}}
+  after(:all)  {User.delete_all }
 
   before(:each) do
-    @admin = FactoryGirl.create(:michael)
-    @non_admin = FactoryGirl.create(:archer)
+    @admin = create(:michael)
+    @non_admin = create(:archer)
 
     login_button user
 
