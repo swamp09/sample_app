@@ -4,17 +4,23 @@ FactoryGirl.define do
     email 'michael@example.com'
     password 'password'
     admin true
+    activated true
+    activated_at Time.zone.now
   end
 
   factory :archer, class: User do
     name 'Sterling Archer'
     email 'duchess@example.gov'
     password 'password'
+    activated true
+    activated_at Time.zone.now
   end
 
   factory :user, class: User do
     sequence(:name)  { |n| "Person #{n}" }
     sequence(:email) { |n| "person_#{n}@example.com" }
     password "password"
+    activated true
+    activated_at Time.zone.now
   end
 end
