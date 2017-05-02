@@ -5,7 +5,7 @@ RSpec.describe UserMailer, type: :mailer do
     before { @user = create(:michael) }
     let(:mail) { UserMailer.account_activation(@user) }
 
-    it 'renders the headers' do\
+    it 'renders the headers' do
       @user.activation_token = User.new_token
 
       expect(mail.subject).to eq('Account activation')
@@ -22,16 +22,17 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe 'password_reset' do
-    let(:mail) { UserMailer.password_reset }
-
     it 'renders the headers' do
-      expect(mail.subject).to eq('Password reset')
-      expect(mail.to).to eq(['to@example.org'])
-      expect(mail.from).to eq(['from@example.com'])
-    end
+      user = create(:michael)
+      user.reset_token = User.new_token
 
-    it 'renders the body' do
-      expect(mail.body.encoded).to match('Hi')
+      mail = UserMailer.password_reset(user)
+
+      expect(mail.subject).to eq('Password reset')
+      expect(mail.to).to eq([user.email])
+      expect(mail.from).to eq(['from@example.com'])
+      expect(mail.body.encoded).to match(user.reset_token)
+      expect(mail.body.encoded).to match(CGI.escape(user.email))
     end
   end
 end
