@@ -7,6 +7,10 @@
         <%= render 'shared/user_info' %>
       </section>
 
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
+
       <section class="micropost_form">
         <%= render 'shared/micropost_form' %>
       </section>
@@ -31,6 +35,5 @@
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
 
-  <%= link_to image_tag("rails.png", alt: "Rails logo"),
-              'http://rubyonrails.org/' %>
+  <%= link_to image_tag("rails.png", alt: "Rails logo"), 'http://rubyonrails.org/' %>
 <% end %>

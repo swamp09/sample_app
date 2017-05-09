@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user = User.new(name: 'Example User', email: 'user@example.com',
-                     password: 'foobar', password_confirmation: 'foobar')
+    @user = User.new(name: 'Example User', email: 'user@example.com', password: 'foobar', password_confirmation: 'foobar')
+    @michael = create(:michael)
+    @archer = create(:archer)
+    @lana = create(:lana)
   end
 
-  describe User do
+  describe 'instance variables' do
     subject { @user }
 
     it { expect respond_to :name }
@@ -92,6 +94,45 @@ RSpec.describe User, type: :model do
       @user.microposts.create!(content: 'Lorem ipsum')
 
       expect { @user.destroy }.to change(Micropost, :count).by(-1)
+    end
+  end
+
+  describe '#follow, #unfollow' do
+    context 'AユーザーがBユーザーをfollowしていない時' do
+      it 'AがBをfollowした後、unfollowする' do
+        expect(@michael.following?(@archer)).to be_falsey
+
+        @michael.follow(@archer)
+
+        expect(@michael.following?(@archer)).to be_truthy
+        expect(@archer.followers.include?(@michael)).to be_truthy
+
+        @michael.unfollow(@archer)
+
+        expect(@michael.following?(@archer)).to be_falsey
+      end
+    end
+  end
+
+  describe 'feed' do
+    context 'AユーザーはfollowしているBと、していないCがいる' do
+      it 'followしているユーザーのmicropostが表示されている' do
+        @lana.microposts.each do |post_following|
+          expect(michael.feed.include?(post_following)).to be_truthy
+        end
+      end
+
+      it '自分自身のmicropostが表示されている' do
+        @michael.microposts.each do |post_self|
+          expect(@michael.feed.include?(post_self)).to be_truthy
+        end
+      end
+
+      it 'followしていないユーザーのmicropostは表示されない' do
+        @archer.microposts.each do |post_unfollwed|
+          expect(@michael.feed.include?(post_unfollwed)).to be_falsey
+        end
+      end
     end
   end
 end
