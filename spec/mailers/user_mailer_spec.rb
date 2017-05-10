@@ -30,9 +30,24 @@ RSpec.describe UserMailer, type: :mailer do
 
       expect(mail.subject).to eq('Password reset')
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(['from@example.com'])
       expect(mail.body.encoded).to match(user.reset_token)
       expect(mail.body.encoded).to match(CGI.escape(user.email))
+    end
+  end
+
+  describe 'follower_increase_notification' do
+    context 'followerが増えた時' do
+      it 'メールで通知する' do
+        user = create(:michael)
+        other = create(:archer)
+
+        mail = UserMailer.follower_increase_notification(other, user)
+
+        expect(mail.subject).to eq('follower increase!')
+        expect(mail.to).to eq([user.email])
+        expect(mail.from).to eq(['from@example.com'])
+        expect(mail.body.encoded).to match(other.name)
+      end
     end
   end
 end
