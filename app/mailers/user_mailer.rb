@@ -15,6 +15,8 @@ class UserMailer < ApplicationMailer
     @follower = follower
     @followed = followed
 
+    return nil unless @followed.notification_option
+
     mail to: @followed.email, subject: 'follower increase!'
   end
 end
