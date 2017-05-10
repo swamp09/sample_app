@@ -37,16 +37,35 @@ RSpec.describe UserMailer, type: :mailer do
 
   describe 'follower_increase_notification' do
     context 'followerが増えた時' do
-      it 'メールで通知する' do
-        user = create(:michael)
-        other = create(:archer)
+      context 'フォローされたユーザーのnotification_optionがtrue' do
+        it 'メールで通知する' do
+          user = create(:michael)
+          other = create(:archer)
 
-        mail = UserMailer.follower_increase_notification(other, user)
+          expect(user.notification_option).to be_truthy
 
-        expect(mail.subject).to eq('follower increase!')
-        expect(mail.to).to eq([user.email])
-        expect(mail.from).to eq(['from@example.com'])
-        expect(mail.body.encoded).to match(other.name)
+          mail = UserMailer.follower_increase_notification(other, user)
+
+          expect(mail.subject).to eq('follower increase!')
+          expect(mail.to).to eq([user.email])
+          expect(mail.from).to eq(['from@example.com'])
+          expect(mail.body.encoded).to match(other.name)
+        end
+      end
+
+      context 'フォローされたユーザーのnotification_optionがfalse' do
+        it 'メールで通知しない' do
+          user = create(:michael)
+          user.notification_option = false
+
+          other = create(:archer)
+
+          expect(user.notification_option).to be_falsey
+
+          mail = UserMailer.follower_increase_notification(other, user)
+
+          expect(mail.to.nil?).to be_truthy
+        end
       end
     end
   end

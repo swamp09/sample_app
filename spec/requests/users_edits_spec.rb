@@ -70,5 +70,22 @@ RSpec.describe 'UsersEdits', type: :request do
         expect(@user.reload.email).to eq(email)
       end
     end
+
+    describe 'notification option' do
+      context '通知オプションをオフにした時' do
+        before do
+          fill_in 'Name', with: name
+          fill_in 'Email', with: email
+          fill_in 'Password', with: ''
+          fill_in 'Password confirmation', with: ''
+          choose 'user_notification_option_false'
+
+          click_button 'Save changes'
+        end
+        it 'DBに反映する' do
+          expect(@user.reload.notification_option).to be_falsey
+        end
+      end
+    end
   end
 end
