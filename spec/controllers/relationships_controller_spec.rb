@@ -12,7 +12,7 @@ RSpec.describe RelationshipsController, type: :controller do
       it 'should require logged_in user' do
         @relationship = Relationship.new(follower_id: create(:michael).id, followed_id: create(:lana).id)
         @relationship.save
-        expect { delete :destroy, id: @relationship }.to change(Relationship, :count).by(0)
+        expect { delete :destroy, params: {id: @relationship} }.to change(Relationship, :count).by(0)
       end
     end
   end
