@@ -17,6 +17,7 @@ before_script:
 
 script:
   - bundle exec rspec
+  - bundle exec cucumber
 
 notification:
   email: false
