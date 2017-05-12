@@ -26,6 +26,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   gem 'erb2haml'
   gem 'listen',                '3.0.8'
   gem 'spring',                '1.7.2'
