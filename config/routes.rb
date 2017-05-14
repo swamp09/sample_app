@@ -21,6 +21,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api, {format: 'json'} do
+    namespace :v1 do
+      namespace :users do
+        get "/" , :action => "index"
+      end
+    end
+  end
+
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
   resources :microposts, only: %i[create destroy]
