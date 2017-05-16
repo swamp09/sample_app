@@ -44,6 +44,7 @@ group :test do
   gem 'minitest-reporters',       '1.1.9'
   gem 'rails-controller-testing', '0.1.1'
   gem 'selenium-webdriver', '2.35.1'
+  gem 'turnip'
 end
 
 group :production do
