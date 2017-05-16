@@ -23,9 +23,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: :json do
     namespace :v1 do
-      namespace :users do
-        get '/', action: :index
-      end
+      resources :users
     end
   end
 
