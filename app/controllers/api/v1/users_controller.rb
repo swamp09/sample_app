@@ -2,9 +2,7 @@ class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
 
-    @users = @users.map do |user|
-      {id: user.id, name: user.name, email: user.email}
-    end
+    @users = @users.map {|user| {id: user.id, name: user.name, email: user.email} }
 
     render json: @users
   end

@@ -21,10 +21,10 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api, {format: 'json'} do
+  namespace :api, format: :json do
     namespace :v1 do
       namespace :users do
-        get "/" , :action => "index"
+        get '/', action: :index
       end
     end
   end
