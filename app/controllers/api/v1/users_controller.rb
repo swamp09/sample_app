@@ -2,17 +2,13 @@ class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
 
-    @users = @users.map {|user| {id: user.id, name: user.name, email: user.email} }
-
-    render json: @users
+    render 'index', formats: 'json', handlers: 'jbuilder'
   end
 
   def show
     @user = User.find(params[:id])
 
-    @user = {id: @user.id, name: @user.name, email: @user.email}
-
-    render json: @user
+    render 'show', formats: 'json', handlers: 'jbuilder'
   end
 
   private
