@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'action_args'
 gem 'bcrypt', '3.1.11'
 gem 'bootstrap-sass', '3.3.6'
 gem 'carrierwave',  '0.11.2'
