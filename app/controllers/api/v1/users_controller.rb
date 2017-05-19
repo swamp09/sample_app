@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
 
-      render 'create', status: :created, notice: 'Successfully created.', formats: 'json', handlers: 'jbuilder'
+      render formats: 'json', status: :created, notice: 'Successfully created.'
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      render 'update', notice: 'Successfully updated.', formats: 'json', handlers: 'jbuilder'
+      render formats: 'json', notice: 'Successfully updated.'
     else
       render json: @user.errors, status: :unprocessable_entity
     end
