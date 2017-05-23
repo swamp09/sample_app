@@ -31,4 +31,14 @@ RSpec.describe 'MicropostsInterface', type: :request do
       expect(page).to_not have_content(micropost.content)
     end
   end
+
+  describe 'GET RSS feed Micropost' do
+    before { get microposts_feed_path }
+
+    subject { response }
+
+    its(:status) { is_expected.to eq(200) }
+    its(:body) { is_expected.to match('I just ate an orange') }
+    its(:content_type) { is_expected.to eq('application/xml') }
+  end
 end
