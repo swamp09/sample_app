@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   post '/login',   to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get 'microposts_feed', to: 'microposts#show'
+
   resources :users do
     member do
       get :following, :followers
@@ -29,6 +31,6 @@ Rails.application.routes.draw do
 
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
-  resources :microposts, only: %i[create destroy]
+  resources :microposts, only: %i[create destroy], format: :rss
   resources :relationships, only: %i[create destroy]
 end
