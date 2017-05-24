@@ -8,6 +8,6 @@ idobataと連携してます.
 
 CI使ってます.
 
-[![Code Climate](https://codeclimate.com/github/swamp09/sample_app/badges/gpa.svg)](https://codeclimate.com/githubswamp09/sample_app)
+[![Code Climate](https://codeclimate.com/github/swamp09/sample_app/badges/gpa.svg)](https://codeclimate.com/github/swamp09/sample_app)
 
 コード品質の計測です。
