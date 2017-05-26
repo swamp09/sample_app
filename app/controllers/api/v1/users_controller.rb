@@ -1,14 +1,18 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: %i[show edit update destroy]
+
+  http_basic_authenticate_with name: 'user', password: Settings.secret_pass
+
   def index
     @users = User.all
 
-    render 'index', formats: 'json', handlers: 'jbuilder'
+    render formats: 'json'
   end
 
   def show
-    @user = User.find(params[:id])
+    render status: :not_found unless @user
 
-    render 'show', formats: 'json', handlers: 'jbuilder'
+    render formats: 'json'
   end
 
   def create
@@ -23,7 +27,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       render formats: 'json', notice: 'Successfully updated.'
     else
@@ -32,12 +35,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
 
     head :no_content
   end
 
   private
+
+    def set_user
+      @user = User.find(params[:id])
+    end
 
     def user_params
       params.permit(:name, :email, :password, :password_confirmation)
