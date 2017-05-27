@@ -1,0 +1,9 @@
+{
+  "name": "sample_app",
+  "description": "Ruby on Rails チュートリアルのサンプルアプリケーション",
+  "keywords": [
+    "Ruby",
+    "Rails"
+  ],
+  "repository": "https://github.com/swamp09/sample_app"
+}
