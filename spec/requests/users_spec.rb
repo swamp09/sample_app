@@ -1,17 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  before { create_list(:user, 20) }
+  before { create_list(:user, 5) }
 
   let(:user) { User.first }
 
   let(:params) { {name: 'Foo bar', email: 'foo@bar.com', password: 'foobar', password_confirmation: 'foobar'} }
   let(:invalid_params) { {name: 'Foo bar', email: 'foo@bar.com', password: 'foobar', password_confirmation: 'barbaz'} }
 
+  describe 'POST /api/v1/login ログインしてauth_tokenを取得する' do
+    before { post api_v1_login_path, params: {email: User.first.email, password: 'password'} }
+
+    specify { expect(JSON.parse(response.body)['auth_token']).to_not be_empty }
+
+    specify { expect(response.status).to eq(200) }
+  end
+
+  let(:token) do
+    puts 'before'
+    User.all.each {|u| puts u.id }
+    post api_v1_login_path, params: {email: User.first.email, password: 'password'}
+    puts 'after'
+    User.all.each {|u| puts u.id }
+    puts ' '
+  end
+
   let(:headers) do
     {
       HTTP_ACCEPT: 'application/json',
-      HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('user', 'pass')
+      HTTP_AUTHORIZATION: "Token token=#{token}"
     }
   end
 
