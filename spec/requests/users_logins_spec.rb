@@ -60,13 +60,13 @@ RSpec.describe 'UsersLogins', type: :request do
 
   describe 'POST #create' do
     let(:valid_parameters) do
-      {email: @user.email, password: @user.password}
+      {session: {email: @user.email, password: @user.password}}
     end
 
     it 'saves the user ID to the session object' do
       visit login_path
 
-      post login_path, session: valid_parameters
+      post login_path, params: valid_parameters
 
       expect(session[:user_id]).to_not be nil
     end
