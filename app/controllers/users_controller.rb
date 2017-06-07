@@ -4,7 +4,14 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.where(activated: true).page(params[:page])
+    @users = User.where('name LIKE ? AND activated = ?', "%#{params[:search]}%", true).page(params[:page])
+    @title = if params[:search].nil?
+               'All users'
+             elsif params[:search].empty?
+               'All users'
+             else
+               'Search result'
+             end
   end
 
   def show
