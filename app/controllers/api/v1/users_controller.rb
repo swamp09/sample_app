@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
-  http_basic_authenticate_with name: 'user', password: Settings.secret_pass
+ # before_action :authenticate
 
   def index
     @users = User.all
@@ -48,5 +48,11 @@ class Api::V1::UsersController < ApplicationController
 
     def user_params
       params.permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def authenticate
+      authenticate_or_request_with_http_token do |token|
+        @user = User.where(auth_token: token).where('auth_token_created_at >= ?', 1.day.ago).first
+      end
     end
 end
