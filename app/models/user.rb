@@ -72,9 +72,9 @@ class User < ApplicationRecord
     UserMailer.follower_increase_notification(self, followed).deliver_now
   end
 
-  def feed
+  def feed(search = ' ')
     following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
-    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+    Micropost.where("(user_id IN (#{following_ids}) OR user_id = :user_id) AND content LIKE :search", user_id: id, search: "%#{search}%")
   end
 
   def follow(other_user)
