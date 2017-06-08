@@ -58,3 +58,7 @@ step '検索したユーザー:textを表示する' do |text|
 
   expect(page).to have_title('Search result')
 end
+
+step '検索に一致しないユーザーは表示しない' do
+  expect(page).to_not have_content('Person')
+end
