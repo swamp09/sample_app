@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  before { create_list(:user, 20) }
+  before { create_list(:user, 5) }
 
   let(:user) { User.first }
 
-  let(:params) { {name: 'Foo bar', email: 'foo@bar.com', password: 'foobar', password_confirmation: 'foobar'} }
-  let(:invalid_params) { {name: 'Foo bar', email: 'foo@bar.com', password: 'foobar', password_confirmation: 'barbaz'} }
+  let(:params) { {name: 'Foo bar', nickname: 'foo', email: 'foo@bar.com', password: 'foobar', password_confirmation: 'foobar'} }
+  let(:invalid_params) { {name: 'Foo bar', nickname: 'foo', email: 'foo@bar.com', password: 'foobar', password_confirmation: 'barbaz'} }
 
   let(:headers) do
     {
