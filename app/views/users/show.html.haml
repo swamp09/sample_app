@@ -5,6 +5,7 @@
       %h1
         = gravatar_for @user
         = @user.name
+        = @user.at_nickname
     %section.stats
       = render 'shared/stats'
   .col-md-8

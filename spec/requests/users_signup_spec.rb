@@ -18,6 +18,7 @@ RSpec.describe 'UsersSignup', type: :request do
     describe 'valid signup information with account activation' do
       before do
         fill_in 'Name', with: 'Example User'
+        fill_in 'Nickname', with: 'example'
         fill_in 'Email', with: 'user@example.com'
         fill_in 'Password', with: 'password'
         fill_in 'Password confirmation', with: 'password'
