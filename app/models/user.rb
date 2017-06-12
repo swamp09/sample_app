@@ -76,7 +76,8 @@ class User < ApplicationRecord
 
   def feed(search = ' ')
     following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
-    Micropost.where("(user_id IN (#{following_ids}) OR user_id = :user_id) AND content LIKE :search", user_id: id, search: "%#{search}%")
+    Micropost.where("(user_id IN (#{following_ids}) OR user_id = :user_id OR in_reply_to = :nickname)AND content LIKE :search",
+                      user_id: id, nickname: nickname, search: "%#{search}%")
   end
 
   def follow(other_user)
