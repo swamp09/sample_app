@@ -107,6 +107,7 @@ end
 
 step 'ユーザーがログイン済みである' do
   @user = create(:michael)
+  @other = create(:archer)
 
   visit login_path
 
@@ -135,8 +136,6 @@ step ':textが新しくfeedに追加されている' do |text|
 end
 
 step 'archerがログインする' do
-  @other = create(:archer)
-
   visit login_path
 
   fill_in 'Email', with: @other.email

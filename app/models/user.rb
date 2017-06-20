@@ -7,6 +7,10 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :room_join_users, dependent: :destroy, foreign_key: 'user_id'
+  has_many :rooms, through: :room_join_users
+  has_many :message, dependent: :destroy
+
   attr_accessor :remember_token, :activation_token, :reset_token
 
   before_save   :downcase_email
@@ -95,6 +99,27 @@ class User < ApplicationRecord
 
   def at_nickname
     "@#{nickname}"
+  end
+
+  def mutual_followers?(other_user)
+    following?(other_user) && other_user.following?(self)
+  end
+
+  def self.at_nickname_exist?(nickname)
+    return false unless nickname = nickname.match(/(@.+)/)
+
+    return false unless user = User.find_by(nickname: nickname[1].to_s[1..-1])
+
+    user
+  end
+
+  def invite_room_exist?(other_user)
+    rooms = self.rooms
+    if rooms.any? {|room| room.users.find(other_user.id) }
+      rooms.each {|room| room.users.find(other_user.id) }
+    else
+      false
+    end
   end
 
   private
