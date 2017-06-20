@@ -6,12 +6,16 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
+require 'capybara/poltergeist'
+
 include ApplicationHelper
 ActiveRecord::Migration.maintain_test_schema!
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f }
 
-Dir.glob("spec/steps/**/*steps.rb") { |f| load f, true }
+Dir.glob('spec/steps/**/*steps.rb') { |f| load f, true }
+
+Capybara.server = :puma
 
 # logger
 # Rails.logger = Logger.new(STDOUT) # 追記
