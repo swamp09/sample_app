@@ -84,5 +84,8 @@ Style/SpaceInsideHashLiteralBraces:
 Style/Lambda:
   Enabled: false
 
+Style/ClassLength:
+  Max: 200
+
 Bundler/OrderedGems:
   Enabled: true

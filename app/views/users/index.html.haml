@@ -2,10 +2,28 @@
 %h1 #{@title}
 = form_with url: users_path, method: 'get', data: {remote: false} do
   %p
-    =text_field_tag :search, params[:search]
+    =text_field_tag :search, params[:search], class: :auto_complete
     =submit_tag 'Search', name: nil
 = paginate @users
 %ul.users
   - @users.each do |user|
     = render user
 = paginate @users
+:javascript
+  $(function() {
+    return $('.auto_complete').autocomplete({
+      source: "/users.json",
+      delay: 500,
+      minLength: 2,
+      focus: function(event, ui) {
+        $(".auto_complete").val(ui.item.name);
+        return false;
+      },
+      select: function(event, ui) {
+        $('.auto_complete').val(ui.item.name);
+        return false;
+      }
+    }).data("ui-autocomplete")._renderItem = function(ul, item) {
+      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+    };
+  });

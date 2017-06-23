@@ -62,3 +62,46 @@ end
 step '検索に一致しないユーザーは表示しない' do
   expect(page).to_not have_content('Person')
 end
+
+step 'ユーザーがログイン済みである,他のユーザーが３1人いる' do
+  Capybara.current_driver = :poltergeist
+
+  @user = create(:michael)
+  create(:archer)
+  create_list(:user, 30)
+
+  visit login_path
+
+  fill_in 'Email', with: @user.email
+  fill_in 'Password', with: @user.password
+
+  click_button 'Log in'
+end
+
+step 'ユーザー一覧ページに訪問する' do
+  visit users_path
+
+  expect(page).to have_title('All users')
+end
+
+step '検索フォーム:fieldに:textと入力' do |field, value|
+  fill_in field, with: value
+end
+
+step 'オートコンプリートで表示され、選択する' do
+  fill_autocomplete 'search', with: 'Ster'
+end
+
+step ':textボタンをクリックする' do |text|
+  click_button text
+end
+
+step '検索したユーザー:textを表示する' do |text|
+  expect(page).to have_selector('li>a', text: text)
+
+  expect(page).to have_title('Search result')
+end
+
+step '検索に一致しないユーザーは表示しない' do
+  expect(page).to_not have_content('Person')
+end

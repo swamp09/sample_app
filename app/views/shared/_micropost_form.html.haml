@@ -1,11 +1,29 @@
-= form_for(@micropost, html: { multipart: true }) do |f|
+= form_with model: @micropost do |f|
   = render 'shared/error_messages', object: f.object
   .field
-    = f.text_area :content, placeholder: "Compose new micropost..."
+    = f.text_area :content, placeholder: "Compose new micropost...", id: :micropost_content, class: :auto_complete
   = f.submit "Post", class: "btn btn-primary"
   %span.picture
     = f.file_field :picture, accept: 'image/jpeg,image/gif,image/png'
 :javascript
+  $(function() {
+    return $('.auto_complete').autocomplete({
+      source: "/users.json?only=nickname",
+      delay: 500,
+      minLength: 2,
+      focus: function(event, ui) {
+        $(".auto_complete").val(ui.item.name);
+        return false;
+      },
+      select: function(event, ui) {
+        $('.auto_complete').val(ui.item.name);
+        return false;
+      }
+    }).data("ui-autocomplete")._renderItem = function(ul, item) {
+      return $("<li>").attr("data-value", item.name).data("ui-autocomplete-item", item).append("<a>" + item.name + "</a>").appendTo(ul);
+    };
+  });
+
   $('#micropost_picture').bind('change', function() {
     var size_in_megabytes = this.files[0].size/1024/1024;
     if (size_in_megabytes > 5) {

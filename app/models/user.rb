@@ -122,6 +122,16 @@ class User < ApplicationRecord
     end
   end
 
+  def self.search(search_text)
+    search_text = '' unless search_text
+
+    if user_nickname = search_text.match(/(@[^\s]+)/)
+      where('nickname LIKE ? AND activated = ?', "%#{user_nickname[1].to_s[1..-1]}%", true)
+    else
+      where('name LIKE ? AND activated = ?', "%#{search_text}%", true)
+    end
+  end
+
   private
 
   def downcase_email
