@@ -4,14 +4,22 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.where('name LIKE ? AND activated = ?', "%#{params[:search]}%", true).page(params[:page])
-    @title = if params[:search].nil?
-               'All users'
-             elsif params[:search].empty?
+    @users = if params[:term]
+               auto_complete(params[:term])
+             else
+               User.search(params[:search]).page(params[:page])
+             end
+
+    @title = if params[:search].blank?
                'All users'
              else
                'Search result'
              end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @users.to_json }
+    end
   end
 
   def show
@@ -88,5 +96,17 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to(root_url) unless current_user.admin?
+  end
+
+  def auto_complete(term)
+    if term =~ /(@[^\s]+)\s.*/
+    elsif user_nickname = term.match(/(@[^\s]+)/)
+      users = User.select('nickname').where('nickname LIKE ? AND activated = ?', "%#{user_nickname[1].to_s[1..-1]}%", true)
+
+      users.map {|user| {name: '@' + user.nickname} }
+    else
+      return [] if params[:only] == 'nickname'
+      User.select('name').where('name LIKE ? AND activated = ?', "%#{term}%", true)
+    end
   end
 end
