@@ -37,6 +37,7 @@ def in_browser(name)
 end
 
 def fill_autocomplete(field, options = {})
+  fill_in field, with: options[:with]
   page.execute_script %{ $('##{field}').trigger('focus') }
   page.execute_script %{ $('##{field}').trigger('keydown') }
 

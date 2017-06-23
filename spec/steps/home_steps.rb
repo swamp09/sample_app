@@ -153,3 +153,33 @@ end
 step ':textがfeedに表示されている' do |text|
   expect(page).to have_content(text)
 end
+
+step 'ユーザーがログイン済みである' do
+  @user = create(:michael)
+  @other = create(:archer)
+
+  visit login_path
+
+  fill_in 'Email', with: @user.email
+  fill_in 'Password', with: @user.password
+
+  click_button 'Log in'
+end
+
+step 'ホーム画面に訪問する' do
+  visit root_path
+
+  expect(page).to have_title('Home')
+end
+
+step ':fieldフォームに:valueと入力し、オートコンプリートを選択する' do |field, value|
+  fill_autocomplete field, with: value
+end
+
+step ':textボタンをクリックする' do |text|
+  click text
+end
+
+step ':textが新しくfeedに追加されている' do |text|
+  expect(page).to have_content(text)
+end

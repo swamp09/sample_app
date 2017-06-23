@@ -48,11 +48,9 @@ RSpec.describe 'UsersLogins', type: :request do
     it 'followed by logout' do
       expect(page).to have_title(@user.name)
 
+      click_link 'Account'
+
       click_link 'Log out'
-
-      expect(page).to have_title('Home')
-
-      delete logout_path
 
       expect(page).to have_title('Home')
     end
