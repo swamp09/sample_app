@@ -17,6 +17,8 @@ Dir.glob('spec/steps/**/*steps.rb') { |f| load f, true }
 
 Capybara.server = :puma
 
+Capybara.default_driver = :poltergeist
+
 # logger
 # Rails.logger = Logger.new(STDOUT) # 追記
 RSpec.configure do |config|

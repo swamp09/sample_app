@@ -4,12 +4,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = if params[:term]
-               auto_complete(params[:term])
-             else
-               User.search(params[:search]).page(params[:page])
-             end
-
+    @users = User.search(params[:search]).page(params[:page])
     @title = if params[:search].blank?
                'All users'
              else
@@ -83,6 +78,16 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def auto_complete
+    @users = if params[:term] =~ /(@[^\s]+)\s.*/
+             elsif user_nickname = params[:term].match(/(@[^\s]+)/)
+               users = User.select('nickname').where('nickname LIKE ? AND activated = ?', "%#{user_nickname[1].to_s[1..-1]}%", true)
+
+               users.map {|user| {nickname: '@' + user.nickname} }
+             end
+    render json: @users.to_json
+  end
+
   private
 
   def user_params
@@ -96,17 +101,5 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to(root_url) unless current_user.admin?
-  end
-
-  def auto_complete(term)
-    if term =~ /(@[^\s]+)\s.*/
-    elsif user_nickname = term.match(/(@[^\s]+)/)
-      users = User.select('nickname').where('nickname LIKE ? AND activated = ?', "%#{user_nickname[1].to_s[1..-1]}%", true)
-
-      users.map {|user| {name: '@' + user.nickname} }
-    else
-      return [] if params[:only] == 'nickname'
-      User.select('name').where('name LIKE ? AND activated = ?', "%#{term}%", true)
-    end
   end
 end

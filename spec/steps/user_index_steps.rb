@@ -64,8 +64,6 @@ step '検索に一致しないユーザーは表示しない' do
 end
 
 step 'ユーザーがログイン済みである,他のユーザーが３1人いる' do
-  Capybara.current_driver = :poltergeist
-
   @user = create(:michael)
   create(:archer)
   create_list(:user, 30)
@@ -84,12 +82,8 @@ step 'ユーザー一覧ページに訪問する' do
   expect(page).to have_title('All users')
 end
 
-step '検索フォーム:fieldに:textと入力' do |field, value|
-  fill_in field, with: value
-end
-
-step 'オートコンプリートで表示され、選択する' do
-  fill_autocomplete 'search', with: 'Ster'
+step '検索フォーム:fieldに:textと入力すると、オートコンプリートで表示され、選択する' do |field, value|
+  fill_autocomplete field, with: value
 end
 
 step ':textボタンをクリックする' do |text|
