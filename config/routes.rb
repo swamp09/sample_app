@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     member do
       get :following, :followers
     end
+    collection do
+      get :auto_complete
+    end
   end
 
   namespace :api, format: :json do
