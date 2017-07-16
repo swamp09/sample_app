@@ -5,11 +5,3 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 これはRails tutorialで作られたサンプルアプリケーションです
-
-idobataと連携してます.
-
-
-
-
-
-
