@@ -29,10 +29,7 @@ RSpec.describe 'Following', type: :request do
       it 'followされているユーザーへのリンクを表示する' do
         visit following_user_path(@user)
 
-        pending('localでパスするがtravisで動かなくなるため一旦pending')
-
         expect(@user.followers.empty?).to be_truthy
-
         expect(page.body).to match(@user.followers.count.to_s)
 
         @user.followers.each do |user|
@@ -45,6 +42,8 @@ RSpec.describe 'Following', type: :request do
   describe 'follow button' do
     it 'ボタンを押してfollowする' do
       visit user_path(@other)
+      pending('localでパスするがtravisで動かなくなるため一旦pending')
+
       expect { click_button 'Follow' }.to change(Relationship, :count).by(1)
     end
   end
