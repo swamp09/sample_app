@@ -4,4 +4,4 @@
 [![Code Climate](https://codeclimate.com/github/swamp09/sample_app/badges/gpa.svg)](https://codeclimate.com/github/swamp09/sample_app)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-これはRails tutorialで作られたサンプルアプリケーションです
+これはRails tutorialで作ったサンプルアプリケーションです。
